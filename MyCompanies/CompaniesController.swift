@@ -8,14 +8,19 @@
 
 import UIKit
 
-class CompaniesController: UITableViewController {
+class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
     
-    let companies = [
+    func didAddCompany(company: TestCompanies) {
+        companies.append(company)
+        let newPath = IndexPath(row: companies.count - 1, section: 0)
+        tableView.insertRows(at: [newPath], with: .automatic)
+    }
+
+    var companies = [
         TestCompanies(name: "Apple", founded: Date()),
         TestCompanies(name: "Facebook", founded: Date()),
         TestCompanies(name: "Google", founded: Date())
     ]
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +69,8 @@ class CompaniesController: UITableViewController {
         print("testing add button")
         let createCompanyController = CreateCompanyController()
         let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.delegate = self
         present(navController, animated: true, completion: nil)
     }
-    
-//    fileprivate func setupNavStyle() {
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.barTintColor = .lightRed
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//    }
 }
 
