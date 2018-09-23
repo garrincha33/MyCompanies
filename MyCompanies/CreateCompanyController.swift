@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol CreateCompanyControllerDelegate {
-    func didAddCompany(company: TestCompanies)
+    func didAddCompany(company: Company)
 }
 
 class CreateCompanyController: UIViewController {
@@ -58,15 +58,16 @@ class CreateCompanyController: UIViewController {
         company.setValue(nameTextField.text, forKey: "name")
         do {
             try context.save()
+            dismiss(animated: true) {
+                self.delegate?.didAddCompany(company: company as! Company)
+            }
         } catch let err {
             print("unable to save to db", err)
         }
     }
     
     @objc fileprivate func handleCancel() {
-        
         dismiss(animated: true, completion: nil)
-        
     }
     
     private func setupUI() {
