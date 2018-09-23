@@ -62,6 +62,30 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+  
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let company = self.companiesArray[indexPath.row]
+            print("attempting to delete company", company.name ?? "")
+            self.companiesArray.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            let context = CoreDataManager.shared.persistantContainer.viewContext
+            context.delete(company)
+            do {
+                try context.save()
+            } catch let err {
+                print("unable to delete", err)
+            }
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
+            print("attempting to edit company")
+            
+        }
+        return [deleteAction, editAction]
+    }
+    
     //MARK:-
 
     @objc fileprivate func handleAddButton() {
