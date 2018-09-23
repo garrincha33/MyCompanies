@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B4EAAE62157A5A200A1BE58 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4EAAE52157A5A200A1BE58 /* CoreDataManager.swift */; };
+		1B4EAAE92157A66300A1BE58 /* CompaniesDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B4EAAE72157A66300A1BE58 /* CompaniesDB.xcdatamodeld */; };
 		1BAA5CBA2150163500EB1348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA5CB92150163500EB1348 /* AppDelegate.swift */; };
 		1BAA5CBC2150163500EB1348 /* CompaniesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA5CBB2150163500EB1348 /* CompaniesController.swift */; };
 		1BAA5CBF2150163500EB1348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BAA5CBD2150163500EB1348 /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B4EAAE52157A5A200A1BE58 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1B4EAAE82157A66300A1BE58 /* CompaniesDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompaniesDB.xcdatamodel; sourceTree = "<group>"; };
 		1BAA5CB62150163500EB1348 /* MyCompanies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCompanies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAA5CB92150163500EB1348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BAA5CBB2150163500EB1348 /* CompaniesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesController.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				1BAA5D2521517D1000EB1348 /* UIColor+theme.swift */,
 				1BF0FA0221540FDF00A0E4EF /* TestCompanies.swift */,
 				1BF0FA04215412CC00A0E4EF /* CreateCompanyController.swift */,
+				1B4EAAE52157A5A200A1BE58 /* CoreDataManager.swift */,
+				1B4EAAE72157A66300A1BE58 /* CompaniesDB.xcdatamodeld */,
 			);
 			path = MyCompanies;
 			sourceTree = "<group>";
@@ -145,8 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B4EAAE62157A5A200A1BE58 /* CoreDataManager.swift in Sources */,
 				1BAA5D2621517D1000EB1348 /* UIColor+theme.swift in Sources */,
 				1BF0FA0321540FDF00A0E4EF /* TestCompanies.swift in Sources */,
+				1B4EAAE92157A66300A1BE58 /* CompaniesDB.xcdatamodeld in Sources */,
 				1BF0FA05215412CC00A0E4EF /* CreateCompanyController.swift in Sources */,
 				1BAA5CBC2150163500EB1348 /* CompaniesController.swift in Sources */,
 				1BAA5CBA2150163500EB1348 /* AppDelegate.swift in Sources */,
@@ -347,6 +355,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1B4EAAE72157A66300A1BE58 /* CompaniesDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B4EAAE82157A66300A1BE58 /* CompaniesDB.xcdatamodel */,
+			);
+			currentVersion = 1B4EAAE82157A66300A1BE58 /* CompaniesDB.xcdatamodel */;
+			path = CompaniesDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1BAA5CAE2150163500EB1348 /* Project object */;
 }

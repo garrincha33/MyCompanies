@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
     
@@ -24,6 +25,8 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchCompanines()
         
         view.backgroundColor = .white
         navigationItem.title = "My Companies"
@@ -71,6 +74,20 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         let navController = CustomNavigationController(rootViewController: createCompanyController)
         createCompanyController.delegate = self
         present(navController, animated: true, completion: nil)
+    }
+    
+    fileprivate func fetchCompanines() {
+        let context = CoreDataManager.shared.persistantContainer.viewContext
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companines = try context.fetch(fetchRequest)
+            companines.forEach { (company) in
+                print(company.name ?? "")
+            }
+        } catch let err {
+            print("unable to fetch companies", err)
+        }
     }
 }
 
