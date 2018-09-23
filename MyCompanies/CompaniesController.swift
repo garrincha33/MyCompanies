@@ -11,17 +11,13 @@ import CoreData
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
     
-    func didAddCompany(company: TestCompanies) {
-        companies.append(company)
-        let newPath = IndexPath(row: companies.count - 1, section: 0)
+    func didAddCompany(company: Company) {
+        companiesArray.append(company)
+        let newPath = IndexPath(row: companiesArray.count - 1, section: 0)
         tableView.insertRows(at: [newPath], with: .automatic)
     }
 
-    var companies = [
-        TestCompanies(name: "Apple", founded: Date()),
-        TestCompanies(name: "Facebook", founded: Date()),
-        TestCompanies(name: "Google", founded: Date())
-    ]
+    var companiesArray = [Company]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +36,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     
     //MARK:- UITableView Implementation
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return companies.count
+        return companiesArray.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -50,7 +46,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let company = companies[indexPath.row]
+        let company = companiesArray[indexPath.row]
         cell.textLabel?.text = company.name
         cell.backgroundColor = .tealColor
         cell.textLabel?.textColor = .white
@@ -84,7 +80,10 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
             let companines = try context.fetch(fetchRequest)
             companines.forEach { (company) in
                 print(company.name ?? "")
+                self.companiesArray = companines
+                self.tableView.reloadData()
             }
+ 
         } catch let err {
             print("unable to fetch companies", err)
         }
