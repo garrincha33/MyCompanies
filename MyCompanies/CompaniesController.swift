@@ -10,6 +10,12 @@ import UIKit
 import CoreData
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
+    func didEditCompany(company: Company) {
+        guard let newRow = companiesArray.index(of: company) else {return}
+        let reloadIndexPath = IndexPath(row: newRow, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
+    
     
     func didAddCompany(company: Company) {
         companiesArray.append(company)
@@ -79,14 +85,20 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
             }
         }
         
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
-            print("attempting to edit company")
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editingCompanies)
             
-        }
+        
         return [deleteAction, editAction]
     }
     
     //MARK:-
+    private func editingCompanies(action: UITableViewRowAction, indexPath: IndexPath) {
+        let controller = CreateCompanyController()
+        controller.company = companiesArray[indexPath.row]
+        controller.delegate = self
+        let navController = CustomNavigationController(rootViewController: controller)
+        present(navController, animated: true, completion: nil)
+    }
 
     @objc fileprivate func handleAddButton() {
         print("testing add button")
