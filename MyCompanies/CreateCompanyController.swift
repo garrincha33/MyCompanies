@@ -11,9 +11,19 @@ import CoreData
 
 protocol CreateCompanyControllerDelegate {
     func didAddCompany(company: Company)
+    func didEditCompany(company: Company)
+    
 }
 
 class CreateCompanyController: UIViewController {
+    
+    var company: Company? {
+        didSet {
+
+            nameTextField.text = company?.name
+            
+        }
+    }
     
     var delegate: CreateCompanyControllerDelegate?
     
@@ -48,11 +58,44 @@ class CreateCompanyController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.title = "Create Company"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        
+        navigationItem.title = company == nil ? "Create Company" : "Edit Company"
+
     }
     
     @objc fileprivate func handleSave() {
+        
+        if company == nil {
+            createCompanySave()
+        } else {
+            editCompanyChanges()
+        }
+        
+    }
+    
+    private func editCompanyChanges() {
+        
+        let context = CoreDataManager.shared.persistantContainer.viewContext
+        company?.name = nameTextField.text
+        
+        do {
+            
+            try context.save()
+            dismiss(animated: true) {
+                self.delegate?.didEditCompany(company: self.company!)
+            }
+            
+        } catch let err {
+            print("unable to edit company", err)
+        }
+        
+    }
+    
+    private func createCompanySave() {
         let context = CoreDataManager.shared.persistantContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         company.setValue(nameTextField.text, forKey: "name")
